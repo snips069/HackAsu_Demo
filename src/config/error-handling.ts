@@ -1,4 +1,4 @@
-// Improve diagnostics on load failures
+// Resolve recursive logging issue
 export class ConfigError extends Error {
   constructor(message: string, public details: any) {
     super(message);
@@ -6,8 +6,12 @@ export class ConfigError extends Error {
   }
 }
 
+let isHandling = false;
+
 export const handleConfigError = (error: Error) => {
+  if (isHandling) return;
+  isHandling = true;
   console.error('Config loading failed:', error.message);
-  console.error('Details:', error);
+  isHandling = false;
   throw error;
 };
