@@ -2,3 +2,6 @@
 
 ## Document new MFA login journey
 ## Add FAQ entries
+
+## Correct parameter descriptions
+## Update screenshots
