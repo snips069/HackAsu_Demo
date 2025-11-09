@@ -1,13 +1,10 @@
-// Introduce schema validation layer
-import { z } from 'zod';
+// Patch enum casing mismatch
+import { configSchema } from './schema';
 
-const configSchema = z.object({
-  DB_HOST: z.string(),
-  DB_PORT: z.number().optional(),
-  API_KEY: z.string()
-});
-
-// Handle optional fields correctly
 export const validateConfig = (config: any) => {
+  // Normalize enum values
+  if (config.ENVIRONMENT) {
+    config.ENVIRONMENT = config.ENVIRONMENT.toUpperCase();
+  }
   return configSchema.parse(config);
 };
